@@ -17,9 +17,9 @@
             let content = this.getContentSize();
             pos.x -= (content.width / 2 );
             pos.y -= (content.height * 0.05);
-            // let pr = myGame.Projectile.create(pos, 1);
-            // gamePlayLayer.addChild(pr);
-            // myGame.getEnemyBulletArray().push(pr);
+            let pr = myGame.Projectile.create(pos, 1);
+            gamePlayLayer.addChild(pr);
+            myGame.getEnemyBulletArray().push(pr);
         },
         initEnemy: function (gp) {
             gamePlayLayer = gp;

@@ -22,8 +22,19 @@
             myGame.getEnemiesArray().push(enemy);
             //console.log("Enemies = " + myGame.getEnemiesArray().length);
         },
+        gameOver: function () {
+            this.unscheduleUpdate();
+            cc.director.getScheduler().unscheduleCallbackForTarget(this, this.spawnEnemy);
 
+            let gameOverLabel = cc.Label.createWithBMFont(res.pixelFont, "Game Over");
+            gameOverLabel.setPosition(cc.p(cc.winSize.width * 0.5, cc.winSize.height * 0.6));
+            this.addChild(gameOverLabel, 10);
+        },
         update: function (dt) {
+            if (myGame.isGameOver()) {
+                this.gameOver();
+                return;
+            }
 
             let midPointY = hero.getContentSize().height / 2;
             let maxY = cc.winSize.height - midPointY;
@@ -90,6 +101,9 @@
 
             this.scheduleUpdate();
             cc.director.getScheduler().scheduleCallbackForTarget(this, this.spawnEnemy, 3, cc.REPEAT_FOREVER, 0, false);
+
+            cc.audioEngine.setMusicVolume(1.0);
+            cc.audioEngine.playMusic(res.backgroundMusic, true);
 
             return true;
         },
